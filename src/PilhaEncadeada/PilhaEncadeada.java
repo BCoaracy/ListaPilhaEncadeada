@@ -69,7 +69,7 @@ public class PilhaEncadeada {
     
     public int getTamanho(){
         PilhaEncadeada pe = new PilhaEncadeada();
-        
+        this.trasferePilha(pe);
         int i=0;
         Object valor = 0;
         while(!pe.pilhaVazia()){
@@ -83,13 +83,15 @@ public class PilhaEncadeada {
     public boolean pilhasIguais(PilhaEncadeada PE1, PilhaEncadeada PE2 ){
         PilhaEncadeada pe1 = new PilhaEncadeada();
         PilhaEncadeada pe2 = new PilhaEncadeada();
-        pe1 = PE1;
-        pe2 = PE2;
+        PE1.trasferePilha(pe1);
+        PE2.trasferePilha(pe2);
         Object valor1=0, valor2=0;
         if(pe1.getTamanho()!=(pe2.getTamanho())){
             return false;
         }
-        while(valor1.equals(null)||valor2.equals(null)){
+        PE1.trasferePilha(pe1);
+        PE2.trasferePilha(pe2);
+        while(!pe1.pilhaVazia()||!pe2.pilhaVazia()){
             valor1 = pe1.pop();
             valor2 = pe2.pop();
             if(!valor1.equals(valor2))
