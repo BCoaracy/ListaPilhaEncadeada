@@ -105,22 +105,36 @@ public class PilhaEncadeada {
         PilhaEncadeada pilhaPos = new PilhaEncadeada();
         PilhaEncadeada pilhaAux = new PilhaEncadeada();
         Object aux = null, pos = null;
-        for(int n = 0;n<Expressao.length();n++){
-            
-            aux = Expressao.charAt(n);
-            if(aux.equals('*')||aux.equals('/')||aux.equals('+' )||aux.equals('-')){
-                pos = aux;
-            }else{
-                pilhaPos.push(aux);
-            }
+        for(int n = 0;n<(Expressao.length()-1);n++){
+                  aux = Expressao.charAt(n);    
+              if(Expressao.charAt(n)==('*')||Expressao.charAt(n)==('+')||Expressao.charAt(n)==('-')
+                      ||Expressao.charAt(n)==('/')||Expressao.charAt(n)==('^')){
+                  pos = Expressao.charAt(n+1);
+                  pilhaPos.push(pos);
+                  pilhaPos.push(aux);
+              }else if(!aux.equals('(')||!aux.equals(')')){
+                  pilhaPos.push(aux);
+              }else if(aux.equals(')')){
+                  n=n-2;
+              }
+              
+//            aux = Expressao.charAt(n);
+//            if(aux.equals('*')||aux.equals('/')||aux.equals('+' )||aux.equals('-')){
+//                pos = aux;
+//            }else{
+//                pilhaPos.push(aux);
+//            }
         }
-        pilhaPos.push(pos);
+        //pilhaPos.push(pos);
         while(!pilhaPos.pilhaVazia()){
             aux=pilhaPos.pop();
             pilhaAux.push(aux);
         }
-        System.out.println("Pilha dentro do método " + pilhaAux.pop() + pilhaAux.pop() + pilhaAux.pop());
-        
+        System.out.println("Pilha dentro do método ");
+        while(!pilhaAux.pilhaVazia()){
+            System.out.print("" + pilhaAux.pop());
+        }
+        System.out.println("");
         return pilhaPos;
         
     }
