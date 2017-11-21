@@ -43,8 +43,24 @@ public class ListaPilhaEncadeada {
         String continua = "s";
         
         Carros car = new Carros();
+//        Carros car2 = new Carros();
+//        Carros car3 = new Carros();
+//        Carros car4 = new Carros();
         Carros carAux = new Carros();
         int i = 0;
+        /*car1.setMOV("E"); car1.setPlaca("123");
+        car2.setMOV("E"); car2.setPlaca("456");
+        car3.setMOV("E"); car3.setPlaca("789");
+        car4.setMOV("E"); car4.setPlaca("111");
+        carAux.setMOV("S"); carAux.setPlaca("456");
+        
+        pe.push(car1);
+        pe.push(car2);
+        pe.push(car3);
+        pe.push(car4);
+        
+        pe.moveCarros(carAux);*/
+        
         while(continua.equals("s")){
             
             System.out.println("Informe a placa do carro: ");
@@ -52,10 +68,11 @@ public class ListaPilhaEncadeada {
             System.out.println("Movimentacao?");
             car.setMOV(sc.nextLine());
             
-            if((car.getMOV().equals("E"))&& pilhaEncadeada1.getTamanho()<10){
+            if(car.getMOV().equals("E")){
                 pilhaEncadeada1.push(car);
-            }if((car.getMOV().equals("S"))){
-                pilhaEncadeada1.moveCarros(car);
+            }else if((car.getMOV().equals("S"))){
+                carAux = car;
+                pilhaEncadeada1.moveCarros(carAux);
             }
             
             System.out.println("Deseja Continuar? ");

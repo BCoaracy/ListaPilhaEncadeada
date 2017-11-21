@@ -77,11 +77,12 @@ public class PilhaEncadeada {
     
     public int moveCarros(Carros carOut){
         Carros carAux = new Carros();
+        Object test;
         PilhaEncadeada pilhaAux = new PilhaEncadeada();
         int i=0;
-        
                 do{
-                    carAux = (Carros) this.pop();
+                    test = this.pop();
+                    carAux = (Carros)test;
                     pilhaAux.push(carAux);
                     i++;
                 }while(!carOut.getPlaca().equals(carAux.getPlaca()));
@@ -89,7 +90,7 @@ public class PilhaEncadeada {
                 while(!pilhaAux.pilhaVazia()){
                     this.push(pilhaAux.pop());
                 }
-                System.out.println("O carro foi manobrado " + i + "vezes.");
+                System.out.println("O carro foi manobrado " + i + " vezes.");
                 return i;
     }
     
