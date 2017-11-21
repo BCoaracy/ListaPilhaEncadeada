@@ -77,6 +77,7 @@ public class PilhaEncadeada {
     
     public int moveCarros(Carros carOut){
         Carros carAux = new Carros();
+        boolean pause = true;
         Object test;
         PilhaEncadeada pilhaAux = new PilhaEncadeada();
         int i=0;
@@ -85,12 +86,14 @@ public class PilhaEncadeada {
                     carAux = (Carros)test;
                     pilhaAux.push(carAux);
                     i++;
-                }while(!carOut.getPlaca().equals(carAux.getPlaca()));
+                    if(carOut.getPlaca().equals(carAux.getPlaca()))
+                        pause = false;
+                }while(pause==true);
                 
                 while(!pilhaAux.pilhaVazia()){
                     this.push(pilhaAux.pop());
                 }
-                System.out.println("O carro foi manobrado " + i + " vezes.");
+                System.out.println("O carro foi manobrado " + (i-1) + " vezes.");
                 return i;
     }
     
@@ -114,42 +117,71 @@ public class PilhaEncadeada {
         return true;
     }
     
-    public PilhaEncadeada posFixaPilha(String Expressao){//Imprime uma expressao pós fixa
+    public void posFixaPilha(String Expressao){//Imprime uma expressao pós fixa
         
-        PilhaEncadeada pilhaPos = new PilhaEncadeada();
-        PilhaEncadeada pilhaAux = new PilhaEncadeada();
-        Object aux = null, pos = null;
-        for(int n = 0;n<(Expressao.length()-1);n++){
-                  aux = Expressao.charAt(n);    
-              if(Expressao.charAt(n)==('*')||Expressao.charAt(n)==('+')||Expressao.charAt(n)==('-')
-                      ||Expressao.charAt(n)==('/')||Expressao.charAt(n)==('^')){
-                  pos = Expressao.charAt(n+1);
-                  pilhaPos.push(pos);
-                  pilhaPos.push(aux);
-              }else if(!aux.equals('(')||!aux.equals(')')){
-                  pilhaPos.push(aux);
-              }else if(aux.equals(')')){
-                  n=n-2;
-              }
-              
-//            aux = Expressao.charAt(n);
-//            if(aux.equals('*')||aux.equals('/')||aux.equals('+' )||aux.equals('-')){
-//                pos = aux;
-//            }else{
-//                pilhaPos.push(aux);
-//            }
-        }
-        //pilhaPos.push(pos);
-        while(!pilhaPos.pilhaVazia()){
-            aux=pilhaPos.pop();
-            pilhaAux.push(aux);
-        }
-        System.out.println("Pilha dentro do método ");
-        while(!pilhaAux.pilhaVazia()){
-            System.out.print("" + pilhaAux.pop());
-        }
-        System.out.println("");
-        return pilhaPos;
+        PilhaEncadeada p = new PilhaEncadeada();        
+        int i = 0, x = 0;
+        char c, t;
+        
+        p.push('(');
+
+        do {
+                c = Expressao.charAt(i);
+                i++;
+            if ((c >= 'A' && c <= 'Z')||(c >='0' && c <= '9')) {
+                System.out.printf("%c", c);
+            } else if (c == '(') {
+                p.push('(');
+            } else if (c == ')' || c == '\0') {
+                do {
+                    t = (char) p.pop();
+                    if (t != '(') {
+                        System.out.printf("%c", t);
+                    }
+                } while (t != '(');
+            } else if (c == '+' || c == '-'
+                    || c == '*' || c == '/'
+                    || c == '^') {
+                do{
+                    t = (char) p.pop();
+                    if (Prioridade(c, t)) {
+                        p.push(t);
+                        p.push(c);
+                        break;
+                    } else {
+                        System.out.printf("%c", t);
+                    }
+                }while(Prioridade(c,t));
+            }
+        } while (i != (Expressao.length()));
+        System.out.printf("\n");
+        
         
     }
+    
+    public boolean Prioridade(char c, char t){
+        int pc = 0, pt = 0; 
+        if (c == '^') {
+            pc = 4;
+        } else if (c == '*' || c == '/') {
+            pc = 2;
+        } else if (c == '+' || c == '-') {
+            pc = 1;
+        } else if (c == '(') {
+            pc = 4;
+        }
+
+        if (t == '^') {
+            pt = 3;
+        } else if (t == '*' || t == '/') {
+            pt = 2;
+        } else if (t == '+' || t == '-') {
+            pt = 1;
+        } else if (t == '(') {
+            pt = 0;
+        }
+
+        return (pc > pt);
+    }
+    
 }
