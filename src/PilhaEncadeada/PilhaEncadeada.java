@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package PilhaEncadeada;
 
-/**
- *
- * @author Bruno
- */
+import listapilhaencadeada.Carros;
+
+
 public class PilhaEncadeada {
     //Criar pilha Apontamento do topo, primeiramente ele aponta para NULL.
     //Quando é empilhado um novo elemento ele recebe o topo.
@@ -78,6 +73,24 @@ public class PilhaEncadeada {
         }
         
         return i-1;
+    }
+    
+    public int moveCarros(Carros carOut){
+        Carros carAux = new Carros();
+        PilhaEncadeada pilhaAux = new PilhaEncadeada();
+        int i=0;
+        
+                do{
+                    carAux = (Carros) this.pop();
+                    pilhaAux.push(carAux);
+                    i++;
+                }while(!carOut.getPlaca().equals(carAux.getPlaca()));
+                
+                while(!pilhaAux.pilhaVazia()){
+                    this.push(pilhaAux.pop());
+                }
+                System.out.println("O carro foi manobrado " + i + "vezes.");
+                return i;
     }
     
     public boolean pilhasIguais(PilhaEncadeada PE1, PilhaEncadeada PE2 ){

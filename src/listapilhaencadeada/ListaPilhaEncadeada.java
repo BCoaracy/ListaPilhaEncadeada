@@ -43,6 +43,8 @@ public class ListaPilhaEncadeada {
         String continua = "s";
         
         Carros car = new Carros();
+        Carros carAux = new Carros();
+        int i = 0;
         while(continua.equals("s")){
             
             System.out.println("Informe a placa do carro: ");
@@ -52,6 +54,8 @@ public class ListaPilhaEncadeada {
             
             if((car.getMOV().equals("E"))&& pilhaEncadeada1.getTamanho()<10){
                 pilhaEncadeada1.push(car);
+            }if((car.getMOV().equals("S"))){
+                pilhaEncadeada1.moveCarros(car);
             }
             
             System.out.println("Deseja Continuar? ");
